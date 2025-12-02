@@ -1,13 +1,13 @@
-const express = require('express');
-const projectController = require('../controllers/projectController');
-const upload = require('../config/multer');
+import { Router } from "express";
+import { createProject, getProjects, getProjectById, updateProject, deleteProject } from "../controller/project.Controller.js";
+import upload from "../config/multer.config.js";
 
-const router = express.Router();
+const router = Router();
 
-router.post('/', upload.single('document'), projectController.createProject);
-router.get('/', projectController.getAllProjects);
-router.get('/:id', projectController.getProjectById);
-router.put('/:id', upload.single('document'), projectController.updateProject);
-router.delete('/:id', projectController.deleteProject);
+router.get("/", getProjects);
+router.get("/:id", getProjectById);
+router.post("/", upload.single("file"), createProject);
+router.put("/:id", upload.single("file"), updateProject);
+router.delete("/:id", deleteProject);
 
-module.exports = router;
+export default router;
